@@ -3,7 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'utils/app_router.dart';
 import 'utils/constant.dart';
 import 'utils/theme/color_schemes.g.dart';
+import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'utils/theme/typography.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,19 +24,26 @@ class MyApp extends StatelessWidget {
         builder: (context, box, _) {
           bool darkMode = box.get(darkModeValue, defaultValue: false);
           String language = box.get(languageValue, defaultValue: "en");
-          return MaterialApp.router(
-            //localization
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: Locale(language),
-            //theme
-            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-            theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: true),
-            darkTheme:
-                ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
-            //Navigation
-            routerConfig: Approute.router,
-          );
+          return Sizer(builder: (context, orientation, deviceType) {
+            return MaterialApp.router(
+              //localization
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale(language),
+              //theme
+              themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: ThemeData(
+                  colorScheme: lightColorScheme,
+                  useMaterial3: true,
+                  textTheme: textTheme),
+              darkTheme: ThemeData(
+                  colorScheme: darkColorScheme,
+                  useMaterial3: true,
+                  textTheme: textTheme),
+              //Navigation
+              routerConfig: Approute.router,
+            );
+          });
         });
   }
 }
