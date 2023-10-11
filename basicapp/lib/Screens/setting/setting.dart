@@ -14,13 +14,6 @@ class Setting extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.titleSetting),
       ),
-      bottomNavigationBar: BottomNavbar(
-        onTap: (value) {
-          if (value == 0) {
-            GoRouter.of(context).pop();
-          }
-        },
-      ),
       body: const SafeArea(child: SettingBody()),
     );
   }

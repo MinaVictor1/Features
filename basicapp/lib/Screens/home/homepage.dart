@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../utils/app_router.dart';
-import '../../utils/bottomnavbar.dart';
+import '../setting/widgets/drawer.dart';
 import 'widgets/homepagebody.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,18 +8,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.titleHome),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.titleHome),
+        ),
+        endDrawer: const DrawerPage(),
+        body: const HomePageBody(),
       ),
-      bottomNavigationBar: BottomNavbar(
-        onTap: (value) {
-          if (value == 1) {
-            GoRouter.of(context).push(Approute.kSetting);
-          }
-        },
-      ),
-      body: const SafeArea(child: HomePageBody()),
     );
   }
 }
